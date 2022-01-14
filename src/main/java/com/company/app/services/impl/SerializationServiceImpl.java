@@ -17,6 +17,7 @@ public class SerializationServiceImpl<T> implements SerializationService<T> {
 			mapper.writeValue(new File(fileName), list.toArray());
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
@@ -28,6 +29,7 @@ public class SerializationServiceImpl<T> implements SerializationService<T> {
 			T[] array = mapper.readValue(new File(fileName), type);
 			return Arrays.asList(array);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ArrayList<>();
 		}
 	}

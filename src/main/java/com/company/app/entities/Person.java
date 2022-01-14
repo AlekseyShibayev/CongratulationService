@@ -7,12 +7,12 @@ public class Person implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String name;
-	private String birthday;
+	private Birthday birthday;
 
 	public Person() {
 	}
 
-	public Person(String name, String birthday) {
+	public Person(String name, Birthday birthday) {
 		this.name = name;
 		this.birthday = birthday;
 	}
@@ -47,11 +47,11 @@ public class Person implements Serializable {
 		this.name = name;
 	}
 
-	public String getBirthday() {
+	public Birthday getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(Birthday birthday) {
 		this.birthday = birthday;
 	}
 }

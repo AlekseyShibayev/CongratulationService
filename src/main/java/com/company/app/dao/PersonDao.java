@@ -1,5 +1,6 @@
 package com.company.app.dao;
 
+import com.company.app.entities.Birthday;
 import com.company.app.entities.Person;
 import com.company.app.services.api.SerializationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class PersonDao {
 
 	public void create(String inputString, Set<Person> set) {
 		String[] s = inputString.split(" ");
-		set.add(new Person(s[1], s[2]));
+		set.add(new Person(s[1], Birthday.of(s[2])));
 		serializationService.save(new ArrayList<>(set), FILE_NAME);
 	}
 
@@ -34,17 +35,17 @@ public class PersonDao {
 
 	public void update(String inputString, Set<Person> set) {
 		String[] s = inputString.split(" ");
-		Person person = new Person(s[1], s[2]);
+		Person person = new Person(s[1], Birthday.of(s[2]));
 		if (set.contains(person)) {
 			set.remove(person);
-			set.add(new Person(s[4], s[5]));
+			set.add(new Person(s[4], Birthday.of(s[5])));
 		}
 		serializationService.save(new ArrayList<>(set), FILE_NAME);
 	}
 
 	public void delete(String inputString, Set<Person> set) {
 		String[] s = inputString.split(" ");
-		Person person = new Person(s[1], s[2]);
+		Person person = new Person(s[1], Birthday.of(s[2]));
 		set.remove(person);
 		serializationService.save(new ArrayList<>(set), FILE_NAME);
 	}

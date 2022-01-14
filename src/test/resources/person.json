@@ -1,1 +1,1 @@
-[{"name":"1","birthday":"2"},{"name":"2","birthday":"3"},{"name":"3","birthday":"4"}]
+[{"name":"Alex","birthday":{"day":"14","month":"01"}},{"name":"Sinus","birthday":{"day":"21","month":"01"}},{"name":"Vasiliy","birthday":{"day":"01","month":"05"}},{"name":"Vova","birthday":{"day":"21","month":"01"}},{"name":"Stepan","birthday":{"day":"19","month":"01"}},{"name":"Masha","birthday":{"day":"21","month":"01"}}]
