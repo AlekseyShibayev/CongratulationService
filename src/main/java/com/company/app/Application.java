@@ -12,12 +12,12 @@ public class Application implements CommandLineRunner {
 	@Autowired
 	private Executor executor;
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
 
-    @Override
-    public void run(String... strings) {
+	@Override
+	public void run(String... strings) {
 		executor.run();
 	}
 }

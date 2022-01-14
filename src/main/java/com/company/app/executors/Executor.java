@@ -2,7 +2,8 @@ package com.company.app.executors;
 
 import com.company.app.constants.ConsoleConstants;
 import com.company.app.controllers.ConsoleController;
-import com.company.app.entity.Person;
+import com.company.app.dao.PersonDao;
+import com.company.app.entities.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,38 +17,40 @@ import java.util.Set;
 @Component
 public class Executor implements Runnable {
 
-    private Set<Person> set;
+	private Set<Person> set;
 
-    @Autowired
-    ConsoleController consoleController;
+	@Autowired
+	private ConsoleController consoleController;
+	@Autowired
+	private PersonDao personDao;
 
-    @PostConstruct
-    public void init() {
-        this.set = new HashSet<>();
-    }
+	@PostConstruct
+	public void init() {
+		this.set = new HashSet<>(personDao.getAll());
+	}
 
-    @Override
-    public void run() {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        try {
-            execute(reader);
-        } catch (Exception e) {
-            ConsoleConstants.MANUAL.forEach(System.out::println);
-            execute(reader);
-        }
-    }
+	@Override
+	public void run() {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			execute(reader);
+		} catch (Exception e) {
+			ConsoleConstants.MANUAL.forEach(System.out::println);
+			execute(reader);
+		}
+	}
 
-    void execute(BufferedReader reader) {
-        String inputString = getInputString(reader);
-        consoleController.process(inputString, set);
-        execute(reader);
-    }
+	void execute(BufferedReader reader) {
+		String inputString = getInputString(reader);
+		consoleController.process(inputString, set);
+		execute(reader);
+	}
 
-    private String getInputString(BufferedReader reader) {
-        try {
-            return reader.readLine();
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
-    }
+	private String getInputString(BufferedReader reader) {
+		try {
+			return reader.readLine();
+		} catch (IOException e) {
+			throw new RuntimeException();
+		}
+	}
 }
