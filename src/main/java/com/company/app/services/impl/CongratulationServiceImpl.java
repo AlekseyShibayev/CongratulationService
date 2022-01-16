@@ -6,6 +6,7 @@ import com.company.app.services.api.CongratulationService;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,11 +30,19 @@ public class CongratulationServiceImpl implements CongratulationService {
     }
 
     private boolean isBirthdayBetween(Person person, LocalDate start, LocalDate end) {
-        boolean result;
         Birthday birthday = person.getBirthday();
-        int year = start.getYear();
-        LocalDate personDate = LocalDate.of(year, Integer.parseInt(birthday.getMonth()), Integer.parseInt(birthday.getDay()));
-        result = personDate.isEqual(start) || personDate.isEqual(end) || (personDate.isAfter(start) && personDate.isBefore(end));
+        LocalDate personDate = LocalDate.of(start.getYear(), Integer.parseInt(birthday.getMonth()), Integer.parseInt(birthday.getDay()));
+        return isDateBetween(start, end, personDate);
+    }
+
+    private boolean isDateBetween(LocalDate start, LocalDate end, LocalDate date) {
+        boolean result;
+        if (start.getYear() != end.getYear()) {
+            if (date.getMonth().equals(Month.JANUARY)) {
+                date = date.withYear(end.getYear());
+            }
+        }
+        result = date.isEqual(start) || date.isEqual(end) || (date.isAfter(start) && date.isBefore(end));
         return result;
     }
 }

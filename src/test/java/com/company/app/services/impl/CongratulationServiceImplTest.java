@@ -38,4 +38,18 @@ public class CongratulationServiceImplTest {
         List<Person> congratulate = congratulationService.getListForCongratulate(list, start);
         Assert.assertEquals(congratulate.size(), 7);
     }
+
+    @Test
+    public void getListForCongratulateTestWhenEndOfTheYear() {
+        List<Person> list = ImmutableList.<Person>builder()
+                .add(new Person("1", Birthday.of("31.12")))
+                .add(new Person("2", Birthday.of("01.01")))
+                .add(new Person("3", Birthday.of("06.01")))
+                .build();
+
+        LocalDate start = LocalDate.of( 2000 , 12 , 30);
+
+        List<Person> congratulate = congratulationService.getListForCongratulate(list, start);
+        Assert.assertEquals(congratulate.size(), 2);
+    }
 }
